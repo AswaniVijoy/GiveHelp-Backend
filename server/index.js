@@ -2,17 +2,15 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 
-// ROUTES
 import userRoutes from "./routes/userRoutes.js";
 import campaignRoutes from "./routes/campaignRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 
-// LOAD ENV VARIABLES
 dotenv.config();
 
 const app = express();
 
-// CORS CONFIGURATION
+// CORS
 app.use(
   cors({
     origin: [
@@ -24,24 +22,23 @@ app.use(
   })
 );
 
-// BODY PARSER
-app.use(express.json({ limit: "10mb" }));
+// Body parser
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// ROUTES
+// Routes
 app.use("/user", userRoutes);
 app.use("/campaign", campaignRoutes);
 app.use("/admin", adminRoutes);
 
-// ROOT ROUTE (for testing)
+// Root test route
 app.get("/", (req, res) => {
-  res.send("GiveHelp API running successfully 🚀");
+  res.send("GiveHelp Backend Running");
 });
 
-// PORT
+// Port
 const PORT = process.env.PORT || 5000;
 
-// START SERVER
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
