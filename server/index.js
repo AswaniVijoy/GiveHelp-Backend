@@ -2,9 +2,9 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 
-import user from "./routes/userroute.js";
-import campaign from "./routes/campaignroute.js";
-import admin from "./routes/adminroute.js";
+import {user} from "./routes/userroute.js";
+import {campaign} from "./routes/campaignroute.js";
+import {admin} from "./routes/adminroute.js";
 
 dotenv.config();
 
