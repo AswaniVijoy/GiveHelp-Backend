@@ -7,7 +7,11 @@ const campaignSchema = new Schema({
   Goal:        { type: Number, default: 0 },
   Raised:      { type: Number, default: 0 },
   Image:       String,
-  Status:      { type: String, enum: ["Active", "Closed"], default: "Active" },
+  Status: {
+  type: String,
+  enum: ["Active", "Closed", "Archived"],
+  default: "Active"
+  },
   CreatedBy:   String,
   CreatedAt:   { type: Date, default: Date.now },
   isDeleted:   { type: Boolean, default: false },

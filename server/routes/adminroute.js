@@ -59,13 +59,23 @@ admin.put("/campaign/:id", authenticate, isAdmin, upload.single("Image"), async 
   }
 });
 
-// Soft delete — marks as archived, stays visible in admin
-admin.delete("/campaign/:id", authenticate, isAdmin, async (req, res) => {
+admin.delete("/campaign/:id", async (req, res) => {
   try {
-    const campaign = await Campaign.findById(req.params.id);
-    if (!campaign) return res.status(404).json({ msg: "Campaign not found" });
-    await Campaign.findByIdAndUpdate(req.params.id, { isDeleted: true, DeletedAt: new Date() });
+    const campaign = await Campaign.findByIdAndUpdate(
+      req.params.id,
+      {
+        isDeleted: true,
+        Status: "Archived"
+      },
+      { new: true }
+    );
+
+    if (!campaign) {
+      return res.status(404).json({ msg: "Campaign not found" });
+    }
+
     res.json({ msg: "Campaign archived successfully" });
+
   } catch (err) {
     res.status(500).json({ msg: "Server error" });
   }
