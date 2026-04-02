@@ -4,7 +4,6 @@ import sharp from "sharp";
 
 export const campaign = Router();
 
-// Featured: active, non-deleted only
 campaign.get("/featured", async (req, res) => {
   try {
     const data = await Campaign.find({ Status: "Active", isDeleted: false }).sort({ Raised: -1 }).limit(6);

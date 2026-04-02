@@ -8,7 +8,6 @@ import { authenticate, isAdmin } from "../middleware/auth.js";
 
 export const admin = Router();
 
-// Admin sees ALL campaigns including archived
 admin.get("/campaigns", authenticate, isAdmin, async (req, res) => {
   try {
     const data = await Campaign.find();
