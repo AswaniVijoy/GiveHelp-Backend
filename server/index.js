@@ -1,10 +1,11 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
 
-import {user} from "./routes/userroute.js";
-import {campaign} from "./routes/campaignroute.js";
-import {admin} from "./routes/adminroute.js";
+import { user } from "./routes/userroute.js";
+import { campaign } from "./routes/campaignroute.js";
+import { admin } from "./routes/adminroute.js";
 
 dotenv.config();
 
@@ -23,6 +24,10 @@ app.use(
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.log("MongoDB Error:", err));
 
 app.use("/user", user);
 app.use("/campaign", campaign);
